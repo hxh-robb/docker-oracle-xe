@@ -42,7 +42,7 @@ SWAPFILE=/root/swapfile
 	echo
 }
 
-docker build -t "madhead/docker-oracle-xe" .
+docker build -t "robbtsang/centos:7_oracle-xe-11g2" .
 
 [ $NEED_EXTRASWAP -eq 1 ] && {
 	echo

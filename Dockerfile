@@ -1,6 +1,7 @@
-FROM centos:centos7
+FROM robbtsang/centos:7
 
-MAINTAINER Siarhei Krukau <siarhei.krukau@gmail.com>
+#MAINTAINER Siarhei Krukau <siarhei.krukau@gmail.com>
+MAINTAINER Robb Tsang <hxh.robb@gmail.com>
 
 # Pre-requirements
 RUN mkdir -p /run/lock/subsys
@@ -15,9 +16,14 @@ CMD /tmp/fake-swap.sh \
   && rm /tmp/fake-swap.sh
 
 # Install Oracle XE
-ADD rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz /tmp/
-RUN yum localinstall -y /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm; \
-    rm -rf /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm
+#ADD rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz /tmp/
+#RUN yum localinstall -y /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm; \
+#    rm -rf /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm
+COPY rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.zip /tmp/
+RUN unzip /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm.zip -d /tmp 
+RUN yum localinstall -y /tmp/Disk1/oracle-xe-11.2.0-1.0.x86_64.rpm; \
+    rm -rf /tmp/Disk1; \
+    rm -rf oracle-xe-11.2.0-1.0.x86_64.rpm.zip
 
 # Restore 'free' command
 RUN mv /usr/bin/free.orig /usr/bin/free
